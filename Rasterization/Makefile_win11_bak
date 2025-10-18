@@ -1,0 +1,31 @@
+CXX = g++
+CXXFLAGS = -std=c++23 -O2 # -Wall -Wextra
+# CXXFLAGS = -std=c++23 -O0 -g3 -gdwarf-2 -Wall -Wextra # gdb debug
+
+INCLUDE_DIR = include
+SRC_DIR = src
+BUILD_DIR = build
+THIRD_PARTY_DIR = third_party
+
+OBJ_DIR = build/obj
+
+SOURCES = $(wildcard $(SRC_DIR)/*.cpp)
+HEADERS = $(wildcard $(INCLUDE_DIR)/*.h) $(wildcard $(INCLUDE_DIR)/*.hpp)
+# $(SOURCES:pattern=replacement)
+OBJECTS = $(SOURCES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o) $(OBJ_DIR)/main.o
+
+TARGET = t.exe
+
+$(TARGET): $(OBJECTS)
+	$(CXX) $(OBJECTS) -o $@
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(THIRD_PARTY_DIR) -c $< -o $@
+
+$(OBJ_DIR)/main.o: main.cpp
+	$(CXX) $(CXXFLAGS) -I$(INCLUDE_DIR) -I$(THIRD_PARTY_DIR) -c $< -o $@
+
+clean:
+	del $(BUILD_DIR)/obj/*.o
+
+.PHONY: all clean rebuild
