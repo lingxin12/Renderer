@@ -1,0 +1,10 @@
+ray-tracing/.vscode/
+ray-tracing/cu/
+ray-tracing/output.png
+
+Rasterization/.vscode/
+Rasterization/build/
+Rasterization/docs/results.md
+Rasterization/models/14-girl-obj/
+Rasterization/outputs/
+Rasterization/output.png
